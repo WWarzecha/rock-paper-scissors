@@ -46,6 +46,7 @@ function humanLost(humanChoice, computerChoice){
 
 function humanTied(humanChoice, computerChoice){
     resultsDiv.textContent = `It's a tie! ${humanChoice} ties ${computerChoice}.`;
+    body.dispatchEvent(scoreChangeEvent);
 }
 
 function playRound(humanChoice, computerChoice){
