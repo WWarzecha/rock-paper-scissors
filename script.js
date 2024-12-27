@@ -1,3 +1,9 @@
+let humanScore = 0;
+let computerScore = 0;
+
+
+const scoreChangeEvent = new Event("scoreChange", {bubbles: true, cancelable: false});
+
 
 function getComputerChoice(){
     // get random number
@@ -29,11 +35,13 @@ function getHumanChoice(){
 function humanWon(humanChoice, computerChoice){
     resultsDiv.textContent = `You won! ${humanChoice} beats ${computerChoice}.`;
     humanScore++;
+    body.dispatchEvent(scoreChangeEvent);
 }
 
 function humanLost(humanChoice, computerChoice){
     resultsDiv.textContent = `You lost! ${computerChoice} beats ${humanChoice}.`;
     computerScore++;
+    body.dispatchEvent(scoreChangeEvent);
 }
 
 function humanTied(humanChoice, computerChoice){
@@ -77,6 +85,15 @@ function playRound(humanChoice, computerChoice){
     }
 }
 
+function checkGameEnd(){
+    if(humanScore === 5){
+        resultsDiv.textContent = "Human WON!!!"
+    }
+    else if(computerScore === 5){
+        resultsDiv.textContent = "Computer won :("
+    }
+}
+
 // DOM
 const resultsDiv = document.createElement("div");
 resultsDiv.textContent = "Let's play a game";
@@ -106,25 +123,7 @@ body.appendChild(rockButton);
 body.appendChild(paperButton);
 body.appendChild(scissorsButton);
 
+body.addEventListener(scoreChangeEvent.type, () => {
+    checkGameEnd();
+});
 
-let humanScore = 0;
-let computerScore = 0;
-
-
-    // let humanChoice;
-    // let computerChoice;
-
-    // alert("Welcome in Rock Paper Scissors game!")
-
-    
-    
-    //decide who is the winner
-    // if (humanScore>computerScore){
-    //     alert("Congratulations, you WON!");
-    // }
-    // else if (humanScore == computerScore){
-    //     alert("It's a tie!")
-    // }
-    // else{
-    //     alert("You lost :(");
-    // }
