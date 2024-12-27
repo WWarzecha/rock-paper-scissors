@@ -88,13 +88,49 @@ function playRound(humanChoice, computerChoice){
 function checkGameEnd(){
     if(humanScore === 5){
         resultsDiv.textContent = "Human WON!!!"
+        resetScore();
     }
     else if(computerScore === 5){
         resultsDiv.textContent = "Computer won :("
+        resetScore();
     }
 }
 
+function resetScore(){
+    humanScore = 0;
+    computerScore = 0;
+}
+
+function updateScore(){
+    computerScoreValue.textContent = computerScore;
+    humanScoreValue.textContent = humanScore;
+}
+
 // DOM
+    const scoreDiv = document.createElement("div");
+    const computerScoreDiv = document.createElement("div");
+    computerScoreDiv.style.display = "flex";
+    computerScoreDiv.style.gap = "10px";
+        const computerScoreText = document.createElement("div");
+        computerScoreText.textContent = "Computer score: ";
+        const computerScoreValue = document.createElement("div");
+        computerScoreValue.textContent = computerScore;
+        computerScoreDiv.appendChild(computerScoreText);
+        computerScoreDiv.appendChild(computerScoreValue);
+        
+    const humanScoreDiv = document.createElement("div");
+    humanScoreDiv.style.display = "flex";
+    humanScoreDiv.style.gap = "10px";
+        const humanScoreText = document.createElement("div");
+        humanScoreText.textContent = "Human score: ";
+        const humanScoreValue = document.createElement("div");
+        humanScoreValue.textContent = computerScore;
+        humanScoreDiv.appendChild(humanScoreText);
+        humanScoreDiv.appendChild(humanScoreValue);
+    
+    scoreDiv.appendChild(computerScoreDiv);
+    scoreDiv.appendChild(humanScoreDiv);
+
 const resultsDiv = document.createElement("div");
 resultsDiv.textContent = "Let's play a game";
 
@@ -118,12 +154,13 @@ scissorsButton.addEventListener("click", () =>{
 
 const body = document.querySelector("body");
 
+body.appendChild(scoreDiv);
 body.appendChild(resultsDiv);
 body.appendChild(rockButton);
 body.appendChild(paperButton);
 body.appendChild(scissorsButton);
 
 body.addEventListener(scoreChangeEvent.type, () => {
+    updateScore();
     checkGameEnd();
 });
-
